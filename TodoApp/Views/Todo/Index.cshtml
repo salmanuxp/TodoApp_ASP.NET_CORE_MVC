@@ -1,0 +1,60 @@
+﻿
+
+@{
+    ViewData["Title"] = "Todo List";
+    var count = 0;
+
+
+}
+
+ @*<a class="text-light btn btn-primary mt-3" asp-area="" asp-controller="Todo" asp-action="CreateTodo">Add New Todo</a>*@
+
+
+
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Todo Name</th>
+      <th scope="col">Todo Description</th>
+      <th scope="col">Edit</th>
+      <th scope ="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (var todo in ViewBag.todos)
+        {
+
+            count = count + 1;
+            <tr>
+                <th scope="row">@count</th>
+            <td>@todo.Name</td>
+            <td>@todo.Description</td>
+            <td><a asp-controller="Todo" asp-action="EditTodo" asp-route-id="@todo.Id" class="text-light btn btn-primary">Edit</a></td>
+                <td><a asp-controller="Todo" asp-action="DeleteTodo" asp-route-id="@todo.Id" class="text-light btn btn-danger">Delete</a></td>
+            </tr>
+        }
+
+  </tbody>
+</table>
+
+@model TodoApp.Models.Todo
+
+<form method="post" asp-controller="Todo" asp-action="CreateTodo">
+
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" placeholder="Enter Todo Name..."  class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" placeholder="Enter Todo Details..." class="form-control" />
+    </div>
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Add New Todo</button>
+    </div>
+
+</form>
